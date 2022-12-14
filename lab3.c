@@ -66,7 +66,7 @@ bool addNewGroup(University *university, const Group group) {
     return true;
 }
 
-bool addNewStudent(Group *group, Student student) {
+/*bool addNewStudent(Group *group, Student student) {
 
     if (group == NULL) {
         return false;
@@ -117,6 +117,49 @@ bool addNewStudent(Group *group, Student student) {
     else {
         g_Id++;
     }
+
+    return true;
+}*/
+
+bool addNewStudent(Group* group, Student student) {
+    Student* addingStudent = NULL;
+
+    if (group == NULL) {
+        return false;
+    }
+
+    if (group->studentsCount == 0) {
+        addingStudent = (Student *) malloc(sizeof(Student));
+    } else {
+        addingStudent = (Student *) realloc(group->students, sizeof(Student) * (group->studentsCount + 1));
+    }
+    if (addingStudent == NULL) {
+        return false;
+    }
+    group->students = addingStudent;
+
+    if (student.id == 0) {
+        student.id = g_Id;
+    }
+    group->students[group->studentsCount] = student;
+    group->studentsCount++;
+
+    for (int i = 1; i < group->studentsCount; ++i){
+        for (int j = 0; j < group->studentsCount - i; ++j){
+            if(strcasecmp(group->students[j+1].surname, group->students[j].surname) < 0){
+                Student studentReplace = group->students[j];
+                group->students[j] = group->students[j+1];
+                group->students[j+1] = studentReplace;
+            }
+        }
+    }
+
+    if (student.id > g_Id){
+        g_Id = student.id + 1;
+    } else {
+        ++g_Id;
+    }
+
 
     return true;
 }
