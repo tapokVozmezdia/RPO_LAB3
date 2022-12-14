@@ -63,7 +63,7 @@ Group *addGr(University *university) {
     return group;
 }
 
-void addSt(University *university) {
+/*void addSt(University *university) {
 	
     Student *student = NULL;
     int groupId = 0;
@@ -97,6 +97,42 @@ void addSt(University *university) {
     if (groupCheck) {
         free(group);
     }
+}*/
+
+void addSt(University* university) {
+    Student* student = NULL;
+    int studentGroupId = 0;
+
+    Group *group = NULL;
+    student = (Student *) malloc(sizeof(Student));
+
+    printf("Введите имя студента:\n");
+    scanf("%s", student->name);
+
+    printf("Введите фамилию студента:\n");
+    scanf("%s", student->surname);
+
+    printf("Введите год рождения студента\n");
+    scanf("%d", &student->birthYear);
+
+    printf("Выберите группу студента:\n");
+    for (int i = 0; i < university->groupsCount; i++) {
+        printf("%d %s\n", i + 1, university->groups[i].name);
+    }
+
+    scanf("%d", &studentGroupId);
+
+    group = &university->groups[studentGroupId - 1];
+
+    student->id = 0;
+    if(addNewStudent(group, *student)){
+        printf("Результат: студент %s успешно добавлен\n", student->surname);
+    } else {
+        printf("Результат: студент %s не был добавлен\n", student->surname);
+    }
+    free(student);
+
+
 }
 
 int main(int argc, char* argv[])
