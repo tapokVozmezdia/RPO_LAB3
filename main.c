@@ -235,13 +235,13 @@ int main(int argc, char* argv[])
     fflush(stdin);
     fflush(stdout);
 	
-    char s;
+    int s;
     do {
         s = getchar();
     } while (s != '\n' && s != EOF);
 	
     getline(&saveFileName, &saveFileSize, stdin);
-    fileName[strlen(saveFileName) - 1] = '\0';
+    saveFileName[strlen(saveFileName) - 1] = '\0';
     printf("File saved. New path: %s\n", saveFileName);
     saveToFile(saveFileName, university);
     freeUniversity(university);
