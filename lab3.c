@@ -40,21 +40,6 @@ Group *getGroup(const University *university, const char *name) {
     return NULL;
 }
 
-void sort_students_by_surname(Group *group) {
-
-    for (int i = (int)group->studentsCount - 1; i > 0; --i) {
-        if (strcasecmp(group->students[i].surname, group->students[i - 1].surname) < 0) {
-            Student studentPtr = group->students[i];
-            group->students[i] = group->students[i - 1];
-            group->students[i - 1] = studentPtr;
-        }
-        else {
-            break;
-        }
-    }
-
-}
-
 bool addNewGroup(University *university, const Group group) {
 
     if (university == NULL) {
@@ -74,11 +59,9 @@ bool addNewGroup(University *university, const Group group) {
         printf("memory allocation error\n");
         return false;
     }
-
     university->groups = groupPtr;
     university->groups[university->groupsCount] = group;
     university->groupsCount++;
-    free(groupPtr);
     return true;
 }
 
@@ -114,13 +97,24 @@ bool addNewStudent(Group *group, Student student) {
     group->students[group->studentsCount] = student;
     group->studentsCount++;
 
-    sort_students_by_surname(group);
+    for (int i = 1; i < group->studentsCount; ++i){
+        
+        for (int j = 0; j < group->studentsCount - i; ++j){
+            
+            if(strcasecmp(group->students[j+1].surname, group->students[j].surname) < 0){
+                Student studentReplace = group->students[j];
+                group->students[j] = group->students[j+1];
+                group->students[j+1] = studentReplace;
+            }
+            
+        }
+    }
 
     if (student.id > g_Id) {
         g_Id = student.id + 1;
     }
     else {
-        g_Id = g_Id + 1;
+        g_Id++;
     }
 
     return true;
