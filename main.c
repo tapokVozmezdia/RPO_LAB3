@@ -66,13 +66,11 @@ Group *addGr(University *university) {
 int main(int argc, char* argv[])
 {
 
-    char *fileName;
+    char *fileName = NULL;
     size_t fileSize = 0;
 
     if (argc < 2) {
         printf("Not given path to university file, manual input is required:\n");
-        fflush(stdin);
-        fflush(stdout);
         getline(&fileName, &fileSize, stdin);
         fileName[strlen(fileName) - 1] = '\0';
     }
