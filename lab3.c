@@ -97,17 +97,17 @@ bool addNewStudent(Group *group, Student student) {
     group->students[group->studentsCount] = student;
     group->studentsCount++;
 
-    for (int i = 1; i < group->studentsCount; ++i){
+    for (int i = (int)(group->studentsCount - 1); i > 0; --i) {
         
-        for (int j = 0; j < group->studentsCount - i; ++j){
-            
-            if(strcasecmp(group->students[j+1].surname, group->students[j].surname) < 0){
-                Student studentReplace = group->students[j];
-                group->students[j] = group->students[j+1];
-                group->students[j+1] = studentReplace;
-            }
-            
+        if (strcasecmp(group->students[i].surname, group->students[i - 1].surname) < 0) {
+            Student tmp = group->students[i];
+            group->students[i] = group->students[i - 1];
+            group->students[i - 1] = tmp;
+        } 
+        else {
+            break;
         }
+        
     }
 
     if (student.id > g_Id) {
@@ -302,7 +302,7 @@ void freeUniversity(University *university) {
 
 bool saveToFile(const char *fileName, const University *university) {
 
-    FILE *file = fopen(fileName, "w+b");
+    FILE *file = fopen(fileName, "wb");
 
     if (file == NULL) {
         return false;
