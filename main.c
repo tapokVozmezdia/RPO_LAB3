@@ -87,6 +87,8 @@ void addSt(University* university) {
 
     group = &university->groups[groupId - 1];
 
+	strcpy(student->groupName, university->groups[groupId - 1].name);
+	
     student->id = 0;
 	
     if(addNewStudent(group, *student)){
