@@ -234,7 +234,12 @@ int main(int argc, char* argv[])
     printf("Enter the name of the file to save:\n");
     fflush(stdin);
     fflush(stdout);
-    cleanStdin();
+	
+    int c;
+    do {
+        c = getchar();
+    } while (c != '\n' && c != EOF);
+	
     getline(&saveFileName, &saveFileSize, stdin);
     fileName[strlen(saveFileName) - 1] = '\0';
     printf("File saved. New path: %s\n", saveFileName);
