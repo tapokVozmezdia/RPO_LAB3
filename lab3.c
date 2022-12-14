@@ -65,7 +65,7 @@ bool addNewGroup(University *university, const Group group) {
     return true;
 }
 
-bool addNewStudent(Group *group, Student student) {
+/*bool addNewStudent(Group *group, Student student) {
 
     if (group == NULL) {
         return false;
@@ -116,6 +116,50 @@ bool addNewStudent(Group *group, Student student) {
     else {
         g_Id++;
     }
+
+    return true;
+}*/
+void sort_students_by_surname(Group *group) {
+    for (int i = (int) group->studentsCount - 1; i > 0; i--) {
+        if (strcasecmp(group->students[i].surname, group->students[i - 1].surname) < 0) {
+            Student tmp = group->students[i];
+            group->students[i] = group->students[i - 1];
+            group->students[i - 1] = tmp;
+        } else {
+            break;
+        }
+    }
+}
+bool addNewStudent(Group *group, Student student) {
+    if (group == NULL) {
+        return false;
+    }
+
+    if (strcmp(group->name, student.groupName) != 0) {
+        return false;
+    }
+
+    Student *student_tmp = NULL;
+    if (group->studentsCount == 0) {
+        student_tmp = (Student *) malloc(sizeof(Student));
+    } else {
+        student_tmp = (Student *) realloc(group->students, sizeof(Student) * (group->studentsCount + 1));
+    }
+    if (student_tmp == NULL) {
+        return false;
+    }
+
+    group->students = student_tmp;
+
+    if (student.id == 0) {
+        student.id = g_Id;
+    }
+    group->students[group->studentsCount] = student;
+    group->studentsCount++;
+
+    sort_students_by_surname(group);
+
+    g_Id = student.id > g_Id ? student.id + 1 : g_Id + 1;
 
     return true;
 }
