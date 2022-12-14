@@ -61,6 +61,7 @@ bool addNewGroup(University *university, const Group group) {
     }
     university->groups = groupPtr;
     university->groups[university->groupsCount] = group;
+    university->groups[university->groupsCount].studentsCount = 0;
     university->groupsCount++;
     return true;
 }
