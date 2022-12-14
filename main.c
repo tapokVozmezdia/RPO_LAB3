@@ -86,7 +86,7 @@ void addSt(University *university) {
     scanf("%d", &groupId);
 
     if (groupId == university->groupsCount + 1) {
-        group = add_group_task(university);
+        group = addGr(university);
         flag = 1;
     } 
 	else {
