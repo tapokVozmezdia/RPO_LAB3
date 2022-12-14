@@ -63,6 +63,42 @@ Group *addGr(University *university) {
     return group;
 }
 
+void addSt(University *university) {
+	
+    Student *student = NULL;
+    int groupId = 0;
+    int flag = 0;
+    Group *group = NULL;
+    student = (Student *) malloc(sizeof(Student));
+
+    printf("Enter student's name:\n");
+    scanf("%s", student->name);
+    printf("Enter student's surname:\n");
+    scanf("%s", student->surname);
+    printf("Enter student's year of birth\n");
+    scanf("%d", &student->birthYear);
+    printf("Enter student's group:\n");
+    for (int i = 0; i < university->groupsCount; ++i) {
+        printf("%d %s\n", i + 1, university->groups[i].name);
+    }
+	
+    printf("%d %s\n", university->groupsCount + 1, "Новая группа");
+    scanf("%d", &groupId);
+
+    if (groupId == university->groupsCount + 1) {
+        group = add_group_task(university);
+        flag = 1;
+    } 
+	else {
+        group = &university->groups[groupId - 1];
+    }
+    addNewStudent(group, *student);
+    free(student);
+    if (flag) {
+        free(group);
+    }
+}
+
 int main(int argc, char* argv[])
 {
 
@@ -115,42 +151,7 @@ int main(int argc, char* argv[])
                 continue;
 
             case E_ADD_STUDENT:
-
-                student = (Student *) malloc(sizeof(Student));
-                if (student == NULL) {
-                    return NULL;
-                }
-
-                printf("Enter student's name:\n");
-                scanf("%s", student->name);
-                printf("Enter student's surname:\n");
-                scanf("%s", student->surname);
-                printf("Enter student's birth year:\n");
-                scanf("%d", &student->birthYear);
-                printf("Enter student's group:\n");
-
-                for (int i = 0; i < university->groupsCount; ++i) {
-                    printf("%d %s\n", i + 1, university->groups[i].name);
-                }
-
-                printf("%d is a new group\n", university->groupsCount + 1);
-                scanf("%d", &groupId);
-
-                if (groupId == university->groupsCount + 1) {
-                    flag = 1;
-                    group = addGr(university);
-                }
-                else {
-                    group = &university->groups[groupId - 1];
-                }
-
-                addNewStudent(group, *student);
-                free(student);
-
-                if (flag == 1) {
-                    free(group);
-                }
-
+           		addSt(university);	
                 continue;
 
             case E_DEL_GROUP:
