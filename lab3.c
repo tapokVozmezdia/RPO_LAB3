@@ -302,7 +302,7 @@ void freeUniversity(University *university) {
 
 bool saveToFile(const char *fileName, const University *university) {
 
-    FILE *file = fopen(fileName, "wb");
+    FILE *file = fopen(fileName, "w+b");
 
     if (file == NULL) {
         return false;
