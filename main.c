@@ -227,7 +227,7 @@ int main(int argc, char* argv[])
 
 		    case E_END:
 				break;
-			}
+		}
 	}
 	char *saveFileName = NULL;
     size_t saveFileSize = 0;
