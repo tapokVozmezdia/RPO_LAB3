@@ -246,7 +246,7 @@ int main(int argc, char* argv[])
     printf("File saved. New path: %s\n", saveFileName);
     saveToFile(saveFileName, university);
     freeUniversity(university);
-	free(fileName);  
+	free(fileName);
     free(saveFileName);
 
     return 0;
