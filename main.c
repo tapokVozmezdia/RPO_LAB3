@@ -157,78 +157,77 @@ int main(int argc, char* argv[])
 
             case E_DEL_GROUP:
 
-                memset(groupName, 0, SIZE);
+				memset(groupName, 0, SIZE);
+				printf("Enter name of the group you wish to delete:\n");
+				scanf("%s", groupName);
 
-                printf("Enter name of the group you wish to delete:\n");
-                scanf("%s", groupName);
+				if (removeGroup(university, groupName)) {
+					printf("Group has been deleted\n");
+				}
+				else {
+					printf("Group has not been found\n");
+				}
 
-                if (removeGroup(university, groupName)) {
-                    printf("Group has been deleted\n");
-                }
-                else {
-                    printf("Group has not been found\n");
-                }
+				continue;
 
-                continue;
+		    case E_DEL_STUDENT:
 
-            case E_DEL_STUDENT:
+				printf("Enter student's ID:\n");
+				scanf("%d", &groupId);
 
-                printf("Enter student's ID:\n");
-                scanf("%d", &groupId);
+				if (removeStudent(university, groupId)) {
+					printf("Student has been deleted\n");
+				}
+				else {
+					printf("Student has not been found\n");
+				}
 
-                if (removeStudent(university, groupId)) {
-                    printf("Student has been deleted\n");
-                }
-                else {
-                    printf("Student has not been found\n");
-                }
+				continue;
 
-                continue;
+		    case E_PRINT_UNI:
 
-            case E_PRINT_UNI:
+				printUniversity(university);
+				continue;
 
-                printUniversity(university);
-                continue;
+		    case E_PRINT_GROUP:
 
-            case E_PRINT_GROUP:
+				memset(groupName, 0, SIZE);
 
-                memset(groupName, 0, SIZE);
+				printf("Enter the name of the group:\n");
+				scanf("%s", groupName);
+				group = getGroup(university, groupName);
+				if (group == NULL) {
+					printf("Group has not been found\n");
+				}
+				else {
+					printGroup(*group);
+				}
 
-                printf("Enter the name of the group:\n");
-                scanf("%s", groupName);
-                group = getGroup(university, groupName);
-                if (group == NULL) {
-                    printf("Group has not been found\n");
-                }
-                else {
-                    printGroup(*group);
-                }
+				continue;
 
-                continue;
+		    case E_PRINT_STUDENT:
 
-            case E_PRINT_STUDENT:
+				printf("Enter student's ID:\n");
+				scanf("%d", &groupId);
+				student = getStudent(university, groupId);
+				if (student == NULL) {
+					printf("Student has not been found\n");
+				}
+				else {
+					printStudent(*student);
+				}
 
-                printf("Enter student's ID:\n");
-                scanf("%d", &groupId);
-                student = getStudent(university, groupId);
-                if (student == NULL) {
-                    printf("Student has not been found\n");
-                }
-                else {
-                    printStudent(*student);
-                }
+				continue;
 
-                continue;
+		    case E_INVALID:
 
-            case E_INVALID:
+				printf("Invalid command\n");
 
-                printf("Invalid command\n");
+				continue;
 
-                continue;
-
-            case E_END:
-                break;
-		}
+		    case E_END:
+				break;
+			}
 	}
 	char *saveFileName = NULL;
     size_t saveFileSize = 0;
