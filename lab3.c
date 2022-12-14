@@ -66,97 +66,48 @@ bool addNewGroup(University *university, const Group group) {
     return true;
 }
 
-/*bool addNewStudent(Group *group, Student student) {
-
-    if (group == NULL) {
-        return false;
-    }
-
-    if (strcmp(student.groupName, group->name) != 0) {
-        return false;
-    }
-
-    Student *studentPtr = NULL;
-
-    if (group->studentsCount != 0) {
-        studentPtr = (Student*)realloc(group->students, (group->studentsCount + 1) * sizeof(Student));
-    }
-    else {
-        studentPtr = (Student*)malloc(sizeof(Student));
-    }
-
-    if (studentPtr == NULL) {
-        printf("memory allocation error\n");
-        return false;
-    }
-
-    group->students = studentPtr;
-
-    if (student.id == 0) {
-        student.id = g_Id;
-    }
-    group->students[group->studentsCount] = student;
-    group->studentsCount++;
-
-    for (int i = (int)(group->studentsCount - 1); i > 0; --i) {
-        
-        if (strcasecmp(group->students[i].surname, group->students[i - 1].surname) < 0) {
-            Student tmp = group->students[i];
-            group->students[i] = group->students[i - 1];
-            group->students[i - 1] = tmp;
-        } 
-        else {
-            break;
-        }
-        
-    }
-
-    if (student.id > g_Id) {
-        g_Id = student.id + 1;
-    }
-    else {
-        g_Id++;
-    }
-
-    return true;
-}*/
-
 bool addNewStudent(Group* group, Student student) {
-    Student* addingStudent = NULL;
+    
+    Student* studentPtr = NULL;
 
     if (group == NULL) {
         return false;
     }
 
     if (group->studentsCount == 0) {
-        addingStudent = (Student *) malloc(sizeof(Student));
-    } else {
-        addingStudent = (Student *) realloc(group->students, sizeof(Student) * (group->studentsCount + 1));
+        studentPtr = (Student *) malloc(sizeof(Student));
+    } 
+    else {
+        studentPtr = (Student *) realloc(group->students, sizeof(Student) * (group->studentsCount + 1));
     }
-    if (addingStudent == NULL) {
+    if (studentPtr == NULL) {
         return false;
     }
-    group->students = addingStudent;
+    
+    group->students = studentPtr;
 
     if (student.id == 0) {
         student.id = g_Id;
     }
+    
     group->students[group->studentsCount] = student;
     group->studentsCount++;
 
     for (int i = 1; i < group->studentsCount; ++i){
+        
         for (int j = 0; j < group->studentsCount - i; ++j){
-            if(strcasecmp(group->students[j+1].surname, group->students[j].surname) < 0){
+            if(strcasecmp(group->students[j + 1].surname, group->students[j].surname) < 0){
                 Student studentReplace = group->students[j];
-                group->students[j] = group->students[j+1];
-                group->students[j+1] = studentReplace;
+                group->students[j] = group->students[j + 1];
+                group->students[j + 1] = studentReplace;
             }
         }
     }
 
-    if (student.id > g_Id){
+    if (student.id > g_Id) {
         g_Id = student.id + 1;
-    } else {
+    } 
+    else {
         ++g_Id;
     }
 
