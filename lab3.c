@@ -218,7 +218,7 @@ University *initUniversity(const char *fileName) {
             groupCpy->studentsCount = 0;
 
             if (!addNewGroup(university, *groupCpy)) {
-                continue;
+                break;
             }
             free(groupCpy);
 
