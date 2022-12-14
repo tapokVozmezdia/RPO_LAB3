@@ -69,11 +69,15 @@ bool addNewGroup(University *university, const Group group) {
 bool addNewStudent(Group* group, Student student) {
     
     Student* studentPtr = NULL;
-
+    
     if (group == NULL) {
         return false;
     }
 
+    if (strcmp(student.groupName, group->name) != 0) {
+        return false;   
+    }
+    
     if (group->studentsCount == 0) {
         studentPtr = (Student *) malloc(sizeof(Student));
     } 
