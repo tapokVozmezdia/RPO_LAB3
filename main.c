@@ -228,16 +228,20 @@ int main(int argc, char* argv[])
                 break;
 		}
 	}
-
+	char *saveFileName = NULL;
+    size_t saveFileSize = 0;
 	printf("Program finished\n");
     printf("Enter the name of the file to save:\n");
+    fflush(stdin);
     fflush(stdout);
-    getline(&fileName, &fileSize, stdin);
-    fileName[strlen(fileName) - 1] = '\0';
-    printf("File saved. New path: %s\n", fileName);
-    saveToFile(fileName, university);
+    cleanStdin();
+    getline(&saveFileName, &saveFileSize, stdin);
+    fileName[strlen(saveFileName) - 1] = '\0';
+    printf("File saved. New path: %s\n", saveFileName);
+    saveToFile(saveFileName, university);
     freeUniversity(university);
-    free(fileName);
+	free(fileName);
+    free(saveFileName);
 
     return 0;
 }
