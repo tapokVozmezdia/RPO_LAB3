@@ -55,21 +55,6 @@ void sort_students_by_surname(Group *group) {
 
 }
 
-int idCount(University *university) {
-
-    int counter = 0;
-
-    for (int i = 0; i < university->groupsCount; ++i) {
-        for (int j = 0; j < university->groups[i].studentsCount; ++j) {
-            if (university->groups[i].students[j].id > counter) {
-                counter = university->groups[i].students[j].id;
-            }
-        }
-    }
-
-    return counter;
-}
-
 bool addNewGroup(University *university, const Group group) {
 
     if (university == NULL) {
@@ -248,7 +233,18 @@ University *initUniversity(const char *fileName) {
     }
 
     fclose(file);
-    g_Id = idCount(university) + 1;
+    
+    int idCount = 0;
+    
+    for (int i = 0; i < university->groupsCount; i++) {
+        for (int j = 0; j < university->groups[i].studentsCount; j++) {
+            if (university->groups[i].students[j].id > idCount) {
+                idCount = university->groups[i].students[j].id;
+            }
+        }
+    }
+
+    g_Id = idCount + 1;
 
     return university;
 }
