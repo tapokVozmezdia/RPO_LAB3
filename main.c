@@ -67,7 +67,7 @@ void addSt(University *university) {
 	
     Student *student = NULL;
     int groupId = 0;
-    int flag = 0;
+    int groupCheck = 0;
     Group *group = NULL;
     student = (Student *) malloc(sizeof(Student));
 
@@ -82,19 +82,19 @@ void addSt(University *university) {
         printf("%d %s\n", i + 1, university->groups[i].name);
     }
 	
-    printf("%d %s\n", university->groupsCount + 1, "Новая группа");
+    printf("%d %s\n", university->groupsCount + 1, "is a new group");
     scanf("%d", &groupId);
 
     if (groupId == university->groupsCount + 1) {
         group = addGr(university);
-        flag = 1;
+	groupCheck = 1;
     } 
 	else {
         group = &university->groups[groupId - 1];
     }
     addNewStudent(group, *student);
     free(student);
-    if (flag) {
+    if (groupCheck) {
         free(group);
     }
 }
