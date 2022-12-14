@@ -231,6 +231,7 @@ int main(int argc, char* argv[])
 	}
 	char *saveFileName = NULL;
     size_t saveFileSize = 0;
+	free(fileName);
 	printf("Program finished\n");
     printf("Enter the name of the file to save:\n");
     fflush(stdin);
@@ -246,7 +247,6 @@ int main(int argc, char* argv[])
     printf("File saved. New path: %s\n", saveFileName);
     saveToFile(saveFileName, university);
     freeUniversity(university);
-	free(fileName);
     free(saveFileName);
 
     return 0;
