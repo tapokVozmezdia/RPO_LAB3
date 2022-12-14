@@ -235,10 +235,10 @@ int main(int argc, char* argv[])
     fflush(stdin);
     fflush(stdout);
 	
-    int c;
+    char s;
     do {
-        c = getchar();
-    } while (c != '\n' && c != EOF);
+        s = getchar();
+    } while (s != '\n' && s != EOF);
 	
     getline(&saveFileName, &saveFileSize, stdin);
     fileName[strlen(saveFileName) - 1] = '\0';
